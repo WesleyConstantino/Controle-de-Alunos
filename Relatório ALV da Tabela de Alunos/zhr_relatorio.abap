@@ -12,7 +12,7 @@ DATA:   v_mat       TYPE zhr001_alunos-zz_matricula,
 *ALV
         t_fieldcat  TYPE  slis_t_fieldcat_alv,
         wa_fieldcat LIKE LINE OF t_fieldcat,
-        wa_layout   TYPE  slis_layout_alv.
+        wa_layout   TYPE  slis_layout_alv. "Libera opções para poder personalizar o layout ALV
 
 *DATA: r_re     TYPE RANGE OF v_re.
 
@@ -88,9 +88,10 @@ FORM f_exibir_alv.
     ENDCASE.
   ENDLOOP.
 
+*Opções de personalização de layou liberadas em DATA: wa_layout   TYPE  slis_layout_alv.
+  wa_layout-colwidth_optimize = abap_true. "Ajuste automático da tabela ALV de acordo com o tamanho do texto
+  wa_layout-zebra             = abap_true. "Cor zebra(Cor sim, cor não) na tabela ALV
 
-  wa_layout-colwidth_optimize = abap_true.
-  wa_layout-zebra             = abap_true.
 
   CALL FUNCTION 'REUSE_ALV_GRID_DISPLAY'
     EXPORTING
