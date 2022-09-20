@@ -20,7 +20,7 @@ DATA:   v_mat       TYPE zhr001_alunos-zz_matricula,
 SELECTION-SCREEN BEGIN OF BLOCK b0 WITH FRAME TITLE text-001.
 *SELECT-OPTIONS cria labels "DE" e "ATÉ" no front-end; são dois compos numa mesma linha
 SELECT-OPTIONS: s_mat     FOR v_mat,
-                s_nome   FOR v_nome,
+                s_nome    FOR v_nome,
                 s_stt     FOR v_stt.
 SELECTION-SCREEN END OF BLOCK b0.
 
@@ -73,13 +73,13 @@ FORM f_exibir_alv.
       program_error          = 2.
 
 
-  FIELD-SYMBOLS: <lfs_line>  TYPE slis_fieldcat_alv.
+  FIELD-SYMBOLS: <lfs_line>  TYPE slis_fieldcat_alv. "Referencia direta a um parametro que está na memória
 
 
-  LOOP AT t_fieldcat ASSIGNING <lfs_line>.
+  LOOP AT t_fieldcat ASSIGNING <lfs_line>. "Para cada linha da tabela "t_fieldcat" assinar de parametro FIELD-SYMBOLS "lfs_line"
     CASE <lfs_line>-fieldname.
       WHEN 'ZZ_RE'.
-        <lfs_line>-hotspot = abap_true.
+        <lfs_line>-hotspot = abap_true. "Modifica diretamente a tabela interna sem a necessidade de usar MODIFY
 
       WHEN 'ZZ_DATA_CAD'.
         <lfs_line>-no_out = abap_true.
